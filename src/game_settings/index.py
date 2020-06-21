@@ -1,7 +1,4 @@
-import os
-print(os.getcwd())
+import game_settings.display as display
+import game_settings.color as color
 
-import Display
-#import color
-
-gameSettings = {}
+gameSettings = {display: display, color: color}
