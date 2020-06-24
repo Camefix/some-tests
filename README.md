@@ -9,4 +9,4 @@ If you want to try it yourself:
 For now (with a bit of imagination):
 - there is a title screen on a blue background
 - the title rises, and 3 buttons appear
-- you can't interact with anything
+- with the arrows, you can rotate between 4 buttons

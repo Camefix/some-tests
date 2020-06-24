@@ -1,26 +1,29 @@
 import pygame
 import time
 
-from game_settings.color import grey
-from game_settings.display import window_width as width, window_height as height
+from game_settings.index import game_settings as gs
 from graphic_motor.graphic_items import Basic_item
+
+time_start_appear = gs["title_screen"].time_start_appear
+time_end_intro = gs["title_screen"].time_end_intro
 
 class Title(Basic_item):
     def __init__(self):
-        super().__init__(pygame.Surface((width * 0.8, height * 0.4)), [width * 0.1, height * 0.3], [0, 0])
-        self.surface.fill(grey)
+        super().__init__(pygame.Surface((gs["title_screen"].title_width, gs["title_screen"].title_height)), 
+            [gs["title_screen"].title_left, gs["title_screen"].title_top], [0, 0])
+        self.surface.fill(gs["color"].grey)
     
     def pre_update(self):
         delta_time = time.time() - self.time_stamp
-        if delta_time > 1 and delta_time <= 1.8:
-            self.speed = [0, -2]
+        if delta_time > gs["title_screen"].time_end_standstill and delta_time <= time_end_intro:
+            self.speed = gs["title_screen"].title_speed
         else:
             self.speed = [0, 0]
 
 
 class Title_button(Basic_item):
     def __init__(self, props, position, has_appeared):
-        super().__init__(pygame.Surface((width * 0.2, height * 0.1)), position, [0, 0])
+        super().__init__(pygame.Surface((gs["title_screen"].button_width, gs["title_screen"].button_height)), position, [0, 0])
         self.surface.fill(props["color"])
         if not has_appeared:
             self.surface.set_alpha(0)
@@ -29,17 +32,17 @@ class Title_button(Basic_item):
     
     def make_visible(self):
         delta_time = time.time() - self.time_stamp
-        alpha = int(255 * min((delta_time - 1.3) / (1.8 - 1.3), 1))
+        alpha = int(255 * min((delta_time - time_start_appear) / (time_end_intro - time_start_appear), 1))
         self.surface.set_alpha(alpha)
      
     def pre_update(self):
         if not self.has_appeared:
             self.make_visible()
-            if time.time() - self.time_stamp > 1.8:
+            if time.time() - self.time_stamp > time_end_intro:
                 self.has_appeared = True
                 self.is_active = True
         elif not self.is_active:
-            if time.time() - self.time_stamp > 0.33:
+            if time.time() - self.time_stamp > gs["title_screen"].time_move:
                 self.is_active = True
                 self.speed[0] = 0
         else:
