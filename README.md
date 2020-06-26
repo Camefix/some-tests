@@ -9,6 +9,7 @@ If you want to try it yourself:
 For now (with a bit of imagination):
 - there is a title screen on a blue background.
 - the title rises, and 3 buttons appear.
+- there is music and sound effects.
 - with the arrows, you can rotate between 4 buttons.
 - with the spacebar, you can activate the buttons reset and quit.
 - the reset button resets the title page.

@@ -2,6 +2,7 @@ import pygame
 import time
 
 from game_settings.index import game_settings as gs
+import sound_manager.index as sound
 from graphic_motor.index import update_graphics
 from graphic_motor.graphic_items import Basic_item
 from title_screen.classes import Title, Title_button
@@ -47,6 +48,8 @@ def run_title(screen) :
     right_key = False
     space_key = False
 
+    sound.init_music("sample_music.mp3")
+
     while not title_done:
         ## Register player's commands
         for event in pygame.event.get():
@@ -74,8 +77,10 @@ def run_title(screen) :
                     waiting_commands = True
             else:
                 if space_key:
+                    sound.noise_library["noise_sample"].play()
                     title_done, next_state, exit_game = buttons[buttons_displayed - 1].effect()
                 elif left_key:
+                    sound.noise_library["noise_sample"].play()
                     waiting_commands = False
                     time_stamp = time.time()
                     button_target = (button_target - 1) % len(buttons_props)
@@ -83,6 +88,7 @@ def run_title(screen) :
                         button.time_stamp = time_stamp
                         button.speed[0] = buttons_speed
                 elif right_key:
+                    sound.noise_library["noise_sample"].play()
                     waiting_commands = False
                     time_stamp = time.time()
                     button_target = (button_target + 1) % len(buttons_props)
@@ -98,4 +104,7 @@ def run_title(screen) :
         update_graphics(screen, items)
         pygame.time.delay(round(1000/gs["display"].fps))
     
+    sound.stop_music()
+    background.surface.fill(gs["color"].black)
+    update_graphics(screen, [[background]])
     return next_state, exit_game
