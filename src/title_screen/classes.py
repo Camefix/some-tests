@@ -13,7 +13,9 @@ time_end_intro = gs["title_screen"].time_end_intro
 class Title(Basic_item):
     def __init__(self):
         super().__init__(pygame.Surface((title_width, title_height)), 
-            [gs["title_screen"].title_left, gs["title_screen"].title_top], [0, 0])
+            [gs["title_screen"].title_left, gs["title_screen"].title_top], 
+            [0, 0]
+        )
         self.surface.fill(grey)
         self.add_centered_text(gs["font"].title_font, "Title")
     

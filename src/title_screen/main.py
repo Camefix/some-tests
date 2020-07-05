@@ -6,6 +6,8 @@ import sound_manager.index as sound
 from graphic_motor.index import update_graphics
 from graphic_motor.graphic_items import Basic_item
 from title_screen.classes import Title, Title_button
+from battle.main import run_battle
+from Data.Battles import sample as sample_battle
 
 window_width = gs["display"].window_width
 button_width = gs["title_screen"].button_width
@@ -36,7 +38,9 @@ def run_title(screen) :
 
     title = Title()
 
-    button1 = {"label": "Button 1", "color": gs["color"].grey, "effect": lambda : (False, 0, False)}
+    def demo_battle(screen):
+        run_battle(screen, sample_battle.battle_data)
+    button1 = {"label": "Battle", "color": gs["color"].grey, "effect": lambda : (True, demo_battle, False)}
     button2 = {"label": "Button 2", "color": gs["color"].red, "effect": lambda : (False, 0, False)}
     button3 = {"label": "Reset", "color": gs["color"].yellow, "effect": lambda : (True, run_title, False)}
     button4 = {"label": "Exit", "color": gs["color"].purple, "effect": lambda : (True, 0, True)}
@@ -78,6 +82,7 @@ def run_title(screen) :
             else:
                 if space_key:
                     sound.noise_library["noise_sample"].play()
+                    space_key = False
                     title_done, next_state, exit_game = buttons[buttons_displayed - 1].effect()
                 elif left_key:
                     sound.noise_library["noise_sample"].play()
