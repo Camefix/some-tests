@@ -17,5 +17,5 @@ You have:
 - the battle button that launch a sample battle.
 
 Battle mode:
-For now, a map appear with a cursor on it. You can't do anything yet.
-The camera is linked to the position of the cursor. To try it, modify the cursor position in Data/Maps/sample.py, in init_cursor, and re-launch the game. Try a valid position (on the grid), else the camera won't follow it.
+For now, a map appear with a cursor on it. You can move it with the arrows in the grid.
+The camera follows the cursor with delay. The cursor should end up in the middle of the screen, except if it is on the edge of the map.
